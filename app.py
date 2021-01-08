@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 
-    text = "形態素解析"
+    text = "形態素解析sann"
 
     # オブジェクトをインスタンス化
     kakasi = ka()
