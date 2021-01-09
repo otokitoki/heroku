@@ -1,60 +1,62 @@
-const morse_obj = {"イ":"・－",	
+const morse_obj = {"イ":"・－",            "ィ":"・－",
 "ロ":"・－・－",
-"ハ":"－・・・",
+"ハ":"－・・・","バ":"－・・・　・・",
 "ニ":"－・－・",
-"ホ":"－・・",
-"ヘ":"・",
-"ト":"・・－・・",
-"チ":"・・－・",
+"ホ":"－・・","ボ":"－・・　・・",
+"ヘ":"・","ベ":"・　・・",
+"ト":"・・－・・","ド":"・・－・・　・・",
+"チ":"・・－・","ヂ":"・・－・　・・",
 "リ":"－－・",
 "ヌ":"・・・・",
-"ル":"－・－－・",　
+"ル":"－・－－・",
 "ヲ":"・－－－",
-"ワ":"－・－",
-"カ":"・－・・",
-"ヨ":"－－",
-"タ":"－・",
+"ワ":"－・－",                             "ヮ":"－・－",
+"カ":"・－・・","ガ":"・－・・　・・",       "ヵ":"・－・・","ヶ":"・－・・",
+"ヨ":"－－",                               "ョ":"－－",
+"タ":"－・","ダ":"－・　・・",
 "レ":"－－－",
-"ソ":"－－－・",
-"ツ":"・－－・",
+"ソ":"－－－・","ゾ":"－－－・　・・",
+"ツ":"・－－・","ヅ":"・－－・　・・",       "ッ":"・－－・",
 "ネ":"－－・－",
 "ナ":"・－・",
 "ラ":"・・・",
 "ム":"－",
-"ウ":"・・－",
-"ヰ":"・－・・－",　
+"ウ":"・・－",                             "ゥ":"・・－",
+"ヰ":"・－・・－",
 "ノ":"・・－－",
-"オ":"・－・・・",　
-"ク":"・・・－",
-"ヤ":"・－－",
+"オ":"・－・・・",                          "ォ":"・－・・・",
+"ク":"・・・－","グ":"・・・－　・・",
+"ヤ":"・－－",                             "ャ":"・－－",
 "マ":"－・・－",
-"ケ":"－・－－",
-"フ":"－－・・",
-"コ":"－－－－",
-"エ":"－・－－－",　
-"テ":"・－・－－",
-"ア":"－－・－－",
-"サ":"－・－・－",
-"キ":"－・－・・",
-"ユ":"－・・－－",
+"ケ":"－・－－","ゲ":"－・－－　・・",
+"フ":"－－・・","ブ":"－－・・　・・",
+"コ":"－－－－","ゴ":"－－－－　・・",
+"エ":"－・－－－",                          "ェ":"－・－－－",
+"テ":"・－・－－","デ":"・－・－－　・・",
+"ア":"－－・－－",                          "ァ":"－－・－－",
+"サ":"－・－・－","ザ":"－・－・－　・・",
+"キ":"－・－・・","ギ":"－・－・・　・・",
+"ユ":"－・・－－",                          "ュ":"－・・－－",
 "メ":"－・・・－",
 "ミ":"・・－・－",
-"シ":"－－・－・",
+"シ":"－－・－・","ジ":"－－・－・　・・",
 "ヱ":"・－－・・",
-"ヒ":"－－・・－",
+"ヒ":"－－・・－","ビ":"－－・・－　・・",
 "モ":"－・・－・",
-"セ":"・－－－・",
-"ス":"－－－・－",
+"セ":"・－－－・","ゼ":"・－－－・　・・",
+"ス":"－－－・－","ズ":"－－－・－　・・",
 "ン":"・－・－・",
 "゛":"・・",
-"゜":"・・－－・"
+"゜":"・・－－・",
+"ー":"・－－・－",
+"、":"・－・－・－",
+"（":"－・－－・－","）":"・－・・－・"
 };
 
-const object2 = Object.fromEntries(
+const r_morse_obj = Object.fromEntries(
   Object.entries(morse_obj)
   .map(([ key, val ]) => [val,key])
 );
-console.log(object2);
 
 function init(){
 
@@ -62,36 +64,57 @@ function init(){
   btn.addEventListener("click",
     function(){
       const text = document.getElementById("text").value;
-      const text_kata = text.replace(/[ぁ-ん]/g, function(s) {
-        return String.fromCharCode(s.charCodeAt(0) + 0x60);
+      let data = {"app_id":"c31834d1765b52b67c936dcfc66d9e63fb624fb957157c2a700f2d9296d3f8db","sentence":text, "output_type":"katakana"};
+      postData('https://labs.goo.ne.jp/api/hiragana', data)
+          .then(res => {
+            data = res.converted; // `data.json()` の呼び出しで解釈された JSON データ
+            console.log(data);
+            data = data.replace(/( |　)/g,"");
+            console.log(data);
+            const data_kata = data.replace(/[ぁ-ん]/g, function(s) {
+            return String.fromCharCode(s.charCodeAt(0) + 0x60);
+          });
+          const morse = Array.prototype.map.call(data_kata,(c)=>{
+            return morse_obj[c];
+          });
+          const morse_space = morse.join("　")
+          console.log(morse_space);
+          document.getElementById("result").style.display = "block";
+          document.getElementById("result").innerText = morse_space;
       });
-      const morse = Array.prototype.map.call(text_kata,(c)=>{
-        return morse_obj[c];
+      
+    },
+    false);
+  
+  const r_btn = document.getElementById("r_btn");
+  r_btn.addEventListener("click",
+    function(){
+      const morse = document.getElementById("text").value;
+      console.log(morse);
+      morse_array = morse.split(/　/g);
+      console.log(morse_array);
+      //text = text.replace(/( |　)/g,"");
+      
+      
+      const text_array = morse_array.map((e)=>{
+        return r_morse_obj[e];
       });
-      const morse_space = morse.join("　")
-      console.log(morse_space);
-      document.getElementById("result").innerText = morse_space;
+      const text = text_array.join("")
+      console.log(text);
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerText = text;
     },
     false);
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+async function postData(url = '', data = {}) {
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data) 
+  })
+  return response.json(); 
+}
