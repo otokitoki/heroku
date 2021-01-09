@@ -2,7 +2,7 @@
 {% block statics %}
 <link rel="stylesheet" type="text/css" href="./assets/roll.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-<script src="./assets/roll.js" type='text/javascript' defer></script> 
+<script src="{{ url_for('assets', filename='roll.js') }}" type='text/javascript' defer></script> 
 {% endblock %}
 {% block content %}
  <div class="roll-div">
