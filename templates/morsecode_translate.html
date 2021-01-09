@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block statics %}
-<link rel="stylesheet" media="all" href="./assets/morse.css"/>
-<script src="./assets/morse.js"></script>
+<link rel="stylesheet" media="all" href="{{ url_for('static', filename='css/morse.css') }}"/>
+<script src="{{ url_for('static', filename='js/morse.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="page-cover"></div>
