@@ -58,55 +58,55 @@ const r_morse_obj = Object.fromEntries(
   .map(([ key, val ]) => [val,key])
 );
 
-function init(){
 
-  const btn = document.getElementById("btn");
-  btn.addEventListener("click",
-    function(){
-      const text = document.getElementById("text").value;
-      let data = {"app_id":"c31834d1765b52b67c936dcfc66d9e63fb624fb957157c2a700f2d9296d3f8db","sentence":text, "output_type":"katakana"};
-      postData('https://labs.goo.ne.jp/api/hiragana', data)
-          .then(res => {
-            data = res.converted; // `data.json()` の呼び出しで解釈された JSON データ
-            console.log(data);
-            data = data.replace(/( |　)/g,"");
-            console.log(data);
-            const data_kata = data.replace(/[ぁ-ん]/g, function(s) {
-            return String.fromCharCode(s.charCodeAt(0) + 0x60);
-          });
-          const morse = Array.prototype.map.call(data_kata,(c)=>{
-            return morse_obj[c];
-          });
-          const morse_space = morse.join("　")
-          console.log(morse_space);
-          document.getElementById("result").style.display = "block";
-          document.getElementById("result").innerText = morse_space;
-      });
-      
-    },
-    false);
+
+const btn = document.getElementById("btn");
+btn.addEventListener("click",
+  function(){
+    const text = document.getElementById("text").value;
+    let data = {"app_id":"c31834d1765b52b67c936dcfc66d9e63fb624fb957157c2a700f2d9296d3f8db","sentence":text, "output_type":"katakana"};
+    postData('https://labs.goo.ne.jp/api/hiragana', data)
+        .then(res => {
+          data = res.converted; // `data.json()` の呼び出しで解釈された JSON データ
+          console.log(data);
+          data = data.replace(/( |　)/g,"");
+          console.log(data);
+          const data_kata = data.replace(/[ぁ-ん]/g, function(s) {
+          return String.fromCharCode(s.charCodeAt(0) + 0x60);
+        });
+        const morse = Array.prototype.map.call(data_kata,(c)=>{
+          return morse_obj[c];
+        });
+        const morse_space = morse.join("　")
+        console.log(morse_space);
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerText = morse_space;
+    });
+    
+　 },
+   false);
   
-  const r_btn = document.getElementById("r_btn");
-  r_btn.addEventListener("click",
-    function(){
-      const morse = document.getElementById("text").value;
-      console.log(morse);
-      morse_array = morse.split(/　/g);
-      console.log(morse_array);
-      //text = text.replace(/( |　)/g,"");
+const r_btn = document.getElementById("r_btn");
+r_btn.addEventListener("click",
+  function(){
+    const morse = document.getElementById("text").value;
+    console.log(morse);
+    morse_array = morse.split(/　/g);
+    console.log(morse_array);
+    //text = text.replace(/( |　)/g,"");
       
       
-      const text_array = morse_array.map((e)=>{
-        return r_morse_obj[e];
-      });
-      const text = text_array.join("")
-      console.log(text);
-      document.getElementById("result").style.display = "block";
-      document.getElementById("result").innerText = text;
-    },
-    false);
+    const text_array = morse_array.map((e)=>{
+      return r_morse_obj[e];
+    });
+    const text = text_array.join("")
+    console.log(text);
+    document.getElementById("result").style.display = "block";
+    document.getElementById("result").innerText = text;
+  },
+  false);
 
-}
+
 
 async function postData(url = '', data = {}) {
   const response = await fetch(url, {
