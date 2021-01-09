@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block statics %}
-<link rel="stylesheet" type="text/css" href="./assets/roll.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/roll.css') }}">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
-<script src="{{ url_for('assets', filename='roll.js') }}" type='text/javascript' defer></script> 
+<script src="{{ url_for('static', filename='js/roll.js') }}" type='text/javascript' defer></script> 
 {% endblock %}
 {% block content %}
  <div class="roll-div">
-        <img src="./images/Ryu.jpg" class="rolling_image box" alt="My test image">
+        <img src="{{ url_for('static', filename='images/Ryu.jpg') }}" class="rolling_image box" alt="My test image">
         <div class="rolling_on button">竜巻！</div>
     </div>
     
