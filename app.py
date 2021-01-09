@@ -2,7 +2,7 @@
 from flask import Flask, render_template 
 from pykakasi import kakasi as ka
 
-app = FlaskFlask(__name__, static_folder="./static", template_folder="./templates")
+app = Flask(__name__, static_folder="./static", template_folder="./templates")
 
 @app.route('/')
 def index():
