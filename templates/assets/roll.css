@@ -1,0 +1,38 @@
+.animation {
+  animation:rolling 0.5s linear 0s 3 normal both running;
+}
+
+.roll-div{
+  width: 556px;
+  height: 500px;
+}
+
+.button{
+  width: 556px;
+  height: 100px;
+  line-height:100px;
+  color:white;
+  background-color:black;
+  text-align:center;
+  font-size:56px;
+  cursor:pointer;
+  border-top:2px solid rgba(255,255,255,0.2);
+  border-bottom:2px solid rgba(0,0,0,0.2);
+  border-radius:4px;
+}
+
+.button:active {
+  -webkit-transform: translate(0,2px);
+  -moz-transform: translate(0,2px);
+  transform: translate(0,2px);
+  border-bottom:none;
+}
+
+@keyframes rolling {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
