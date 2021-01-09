@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block statics %}
-<script type="text/javascript" src="./assets/localStorage.js" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js//localStorage.js') }}" defer></script>
 {% endblock %}
 {% block content %}
 <form name="form1" id="form1">
