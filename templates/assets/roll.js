@@ -6,7 +6,7 @@ $button.on('mousedown', function(){
   if (isAnimate) {
     return;
   }
-  $('.rolling_image').attr('src', 'images/竜巻.jpg');
+  $('.rolling_image').attr('src', './images/竜巻.jpg');
   $button.val('アニメーション中');
   $box.addClass('animation');
   isAnimate = true;
@@ -15,6 +15,6 @@ $button.on('mousedown', function(){
 $box.on('animationend', function(){
   $button.val('アニメーション開始')
   $box.removeClass('animation');
-  $('.rolling_image').attr('src', 'images/ryu.jpg');
+  $('.rolling_image').attr('src', './images/ryu.jpg');
   isAnimate = false;
 });
