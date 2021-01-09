@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block statics %}
+<link rel="stylesheet" media="all" href="./assets/morse.css"/>
+<script src="./assets/morse.js"></script>
+{% endblock %}
+{% block contents %}
+<div class="page-cover"></div>
+<div class="header"><br>モールス信号　　＜＝＝＞　　日本語　　　</div>
+<div class="header-space"></div>
+<div class="main">
+  <div class="main-search">
+    <div class="search">
+      <h1 class="exp">変換したい言葉を入力してください。</h1>
+      <input class="search-box" id="text" data-model="words" placeholder="例) 東京タワー" />
+      <ul class="suggestions"></ul>
+      <button class="search-button" data-model="words" id="btn">日本語=>モールス</button><button class="search-button" data-model="words" id="r_btn">モールス=>日本語</button>
+      <ul class="suggestions"></ul>
+      <div class="search-box result-box" id="result" data-model="words" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
